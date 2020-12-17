@@ -6,11 +6,11 @@
 /*   By: apending <apending@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 17:45:08 by apending          #+#    #+#             */
-/*   Updated: 2020/12/15 23:08:27 by apending         ###   ########.fr       */
+/*   Updated: 2020/12/17 18:00:25 by apending         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "printf.h"
 
 int	ft_printf(const char *format, ...)
 {
@@ -44,13 +44,15 @@ int	ft_printf(const char *format, ...)
 	return (print_res);
 }
 
-int main(void)
-{
-	char format[] = "\nft_printf\n\nPercent - %%\nChar - start:%c:end\nString NULL - start:%s:end\nString - start:%5.s:end\nNumber 10 - start:%d:end\n\n";
-	int res = 0;
-	res = ft_printf(format, 'a', NULL, "Test String", 1234567890);
-	res = printf("Result my: %d\n\n", res);
-	// res = printf("\n%s", NULL);
-	// printf("\nResult norm:%d\n\n", res);
-	return (0);
-}
+// int main(void)
+// {
+// 	//char format[] = "\nft_printf\n\nPercent - %%\nChar - start:%c:end\nString NULL - start:%s:end\nString - start:%s:end\nNumber 10 - start:%4.4d:end\n\n";
+// 	char formatStr[] = "\nft_printf\n\nString my - start:%-10.5s:end";
+// 	int res = 0;
+
+// 	res = ft_printf(formatStr, "est");
+// 	res = printf("\nString expend - start:%-10.5s:end\n\n", "est");
+// 	// res = printf("\n%s", NULL);
+// 	// printf("\nResult norm:%d\n\n", res);
+// 	return (0);
+// }

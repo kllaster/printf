@@ -6,11 +6,11 @@
 /*   By: apending <apending@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 19:47:59 by apending          #+#    #+#             */
-/*   Updated: 2020/12/14 19:57:02 by apending         ###   ########.fr       */
+/*   Updated: 2020/12/17 18:00:13 by apending         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../ft_printf.h"
+#include "../printf.h"
 
 void ft_putnbr(int n)
 {

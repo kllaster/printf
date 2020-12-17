@@ -6,29 +6,11 @@
 /*   By: apending <apending@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 19:28:19 by apending          #+#    #+#             */
-/*   Updated: 2020/12/14 19:47:37 by apending         ###   ########.fr       */
+/*   Updated: 2020/12/17 18:00:21 by apending         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
-
-int	ft_parse_notation(const char *format, int index, s_arg *s_arg)
-{
-	int notation;
-
-	index++;
-	notation = 0;
-	while (format[index])
-	{
-		if (format[index] >= '0' && format[index] <= '9')
-			notation = (notation * 10) + format[index] - '0';
-		else
-			break ;
-	}
-	index--;
-	(*s_arg).notation = notation;
-	return (index);
-}
+#include "printf.h"
 
 int	ft_parse_flag(const char *format, int index, s_arg *s_arg)
 {
@@ -42,17 +24,71 @@ int	ft_parse_flag(const char *format, int index, s_arg *s_arg)
 		else if (format[index] == ' ')
 			(*s_arg).flag |= FLG_SPACE;
 		else if (format[index] == '#')
-		{
-			(*s_arg).flag = (*s_arg).flag | FLG_SHARP;
-			index = ft_parse_notation(format, index, s_arg);
-		}
+			(*s_arg).flag |= FLG_SHARP;
 		else if (format[index] == '0')
 			(*s_arg).flag |= FLG_NULL;
 		else
 			break ;
 		index++;
 	}
+	index--;
 	return (index);
+}
+
+int	ft_parse_width(const char *format, int index, s_arg *s_arg, va_list *arg_ptr)
+{
+	int width;
+
+	index++;
+	width = 0;
+	if (format[index] == '*')
+	{
+		(*s_arg).width = va_arg(*arg_ptr, int);
+		if ((*s_arg).width < 0)
+				(*s_arg).width *= -1;
+		return (index);
+	}
+	while (format[index])
+	{
+		if (format[index] >= '0' && format[index] <= '9')
+			width = (width * 10) + format[index] - '0';
+		else
+			break ;
+		index++;
+	}
+	(*s_arg).width = width;
+	return (--index);
+}
+
+int	ft_parse_precision(const char *format, int index, s_arg *s_arg, va_list *arg_ptr)
+{
+	int precision;
+
+	index++;
+	precision = 0;
+	if (format[index] && format[index] == '.')
+	{
+		index++;
+		if (format[index] == '*')
+		{
+			(*s_arg).precision = va_arg(*arg_ptr, int);
+			if ((*s_arg).precision < 0)
+				(*s_arg).precision *= -1;
+			return (index);
+		}
+		while (format[index])
+		{
+			if (format[index] >= '0' && format[index] <= '9')
+				precision = (precision * 10) + format[index] - '0';
+			else
+				break ;
+			index++;
+		}
+		(*s_arg).precision = precision;
+	}
+	else
+		(*s_arg).precision = -1;
+	return (--index);
 }
 
 int	ft_parse_type(const char *format, int index, s_arg *s_arg)
@@ -60,6 +96,7 @@ int	ft_parse_type(const char *format, int index, s_arg *s_arg)
 	int i;
 
 	i = 0;
+	index++;
 	if (format[index])
 	{
 		if (format[index] == 'd' || format[index] == 'i')
@@ -117,10 +154,10 @@ int	ft_printf_parser(const char *format, int *index, va_list *arg_ptr)
 	}
 	if ((*index = ft_parse_flag(format, *index, &s_arg)) == -1)
 		return (-1);
-	// if ((index = ft_parse_width(format, index, &s_arg)) == -1)
-	// 	return (-1);
-	// if ((index = ft_parse_precision(format, index, &s_arg)) == -1)
-	// 	return (-1);
+	if ((*index = ft_parse_width(format, *index, &s_arg, arg_ptr)) == -1)
+		return (-1);
+	if ((*index = ft_parse_precision(format, *index, &s_arg, arg_ptr)) == -1)
+		return (-1);
 	if ((*index = ft_parse_type(format, *index, &s_arg)) == -1)
 		return (-1);
 	if (!s_arg.type_found || (print_sumb = ft_print_arg(s_arg, arg_ptr)) == -2)

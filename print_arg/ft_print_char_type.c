@@ -6,11 +6,11 @@
 /*   By: apending <apending@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 18:52:39 by apending          #+#    #+#             */
-/*   Updated: 2020/12/14 19:33:16 by apending         ###   ########.fr       */
+/*   Updated: 2020/12/17 18:00:10 by apending         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../ft_printf.h"
+#include "../printf.h"
 
 int	ft_print_char_type(va_list *arg_ptr)
 {
