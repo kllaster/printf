@@ -6,7 +6,7 @@
 /*   By: apending <apending@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 19:28:19 by apending          #+#    #+#             */
-/*   Updated: 2020/12/17 18:00:21 by apending         ###   ########.fr       */
+/*   Updated: 2020/12/17 21:09:31 by apending         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,10 +100,7 @@ int	ft_parse_type(const char *format, int index, s_arg *s_arg)
 	if (format[index])
 	{
 		if (format[index] == 'd' || format[index] == 'i')
-		{
 			(*s_arg).type[i++] = 'd';
-			(*s_arg).type_found = 1;
-		}
 		else if (format[index] == 'c' ||
 					format[index] == 'x' ||
 					format[index] == 'X' ||
@@ -112,10 +109,12 @@ int	ft_parse_type(const char *format, int index, s_arg *s_arg)
 					format[index] == 's' ||
 					format[index] == 'S' ||
 					format[index] == 'p')
-		{
 			(*s_arg).type[i++] = format[index];
-			(*s_arg).type_found = 1;
-		}
+		(*s_arg).type[i] = '\0';
+	}
+	if (i == 0 && ((*s_arg).precision != -1 || (*s_arg).width > 0))
+	{
+		(*s_arg).type[i++] = '%';
 		(*s_arg).type[i] = '\0';
 	}
 	return (index);
@@ -126,15 +125,15 @@ int	ft_print_arg(s_arg s_arg, va_list *arg_ptr)
 	int print_sumb;
 
 	print_sumb = -2;
-	if (s_arg.type_found)
-	{
-		if (s_arg.type[0] == 'c')
-			print_sumb = ft_print_char_type(arg_ptr);
-		else if (s_arg.type[0] == 's')
-			print_sumb = ft_print_string_type(s_arg, arg_ptr);
-		else if (s_arg.type[0] == 'd')
-			print_sumb = ft_print_number_type(s_arg, arg_ptr);
-	}
+	if (s_arg.type[0] == 'c')
+		print_sumb = ft_print_char_type(s_arg, arg_ptr);
+	else if (s_arg.type[0] == '%')
+		print_sumb = ft_print_percent_type(s_arg);
+	else if (s_arg.type[0] == 's')
+		print_sumb = ft_print_string_type(s_arg, arg_ptr);
+	else if (s_arg.type[0] == 'd')
+		print_sumb = ft_print_number_type(s_arg, arg_ptr);
+
 	return (print_sumb);
 }
 
@@ -160,7 +159,7 @@ int	ft_printf_parser(const char *format, int *index, va_list *arg_ptr)
 		return (-1);
 	if ((*index = ft_parse_type(format, *index, &s_arg)) == -1)
 		return (-1);
-	if (!s_arg.type_found || (print_sumb = ft_print_arg(s_arg, arg_ptr)) == -2)
+	if ((print_sumb = ft_print_arg(s_arg, arg_ptr)) == -2)
 	{
 		*index = old_index;
 		return (-2);
