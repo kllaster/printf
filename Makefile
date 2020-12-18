@@ -12,8 +12,9 @@
 
 NAME = libftprintf.a
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror
-SRC =   ft_printf.c\
+CFLAGS = -Wall -Wextra
+SRC =   main.c\
+		ft_printf.c\
 		ft_printf_parser.c\
 		print_arg/ft_print_char_type.c\
 		print_arg/ft_print_number_type.c\

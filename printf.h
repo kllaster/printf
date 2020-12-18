@@ -6,7 +6,7 @@
 /*   By: apending <apending@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 19:24:20 by apending          #+#    #+#             */
-/*   Updated: 2020/12/17 21:10:55 by apending         ###   ########.fr       */
+/*   Updated: 2020/12/17 23:30:33 by apending         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ typedef	struct	struct_args {
 
 int	ft_printf(const char *format, ...);
 int	ft_printf_parser(const char *format, int *index, va_list *arg_ptr);
-int ft_print_char_type(s_arg s_arg, va_list *arg_ptr);
+int	ft_print_char_type(s_arg s_arg, va_list *arg_ptr);
 int	ft_print_percent_type(s_arg s_arg);
-int ft_print_string_type(s_arg s_arg, va_list *arg_ptr);
-int ft_print_number_type(s_arg s_arg, va_list *arg_ptr);
+int	ft_print_string_type(s_arg s_arg, va_list *arg_ptr);
+int	ft_print_number_type(s_arg s_arg, va_list *arg_ptr);
+int	ft_strlen(char *str);
