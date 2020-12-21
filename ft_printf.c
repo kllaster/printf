@@ -6,7 +6,7 @@
 /*   By: apending <apending@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 17:45:08 by apending          #+#    #+#             */
-/*   Updated: 2020/12/17 20:25:23 by apending         ###   ########.fr       */
+/*   Updated: 2020/12/18 19:58:07 by apending         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ int	ft_printf(const char *format, ...)
 				print_res += print_check_val;
 				continue ;
 			}
-
 		}
 		write(1, &(format[i]), 1);
 		print_res++;
@@ -44,16 +43,3 @@ int	ft_printf(const char *format, ...)
 	va_end(arg_ptr);
 	return (print_res);
 }
-
-// int main(void)
-// {
-// 	//char format[] = "\nft_printf\n\nPercent - %%\nChar - start:%c:end\nString NULL - start:%s:end\nString - start:%s:end\nNumber 10 - start:%4.4d:end\n\n";
-// 	char formatStr[] = "\nft_printf\n\nString my - start:%-10.5s:end";
-// 	int res = 0;
-
-// 	res = ft_printf(formatStr, "est");
-// 	res = printf("\nString expend - start:%-10.5s:end\n\n", "est");
-// 	// res = printf("\n%s", NULL);
-// 	// printf("\nResult norm:%d\n\n", res);
-// 	return (0);
-// }

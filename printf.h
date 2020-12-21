@@ -6,7 +6,7 @@
 /*   By: apending <apending@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 19:24:20 by apending          #+#    #+#             */
-/*   Updated: 2020/12/17 23:30:33 by apending         ###   ########.fr       */
+/*   Updated: 2020/12/21 18:55:29 by apending         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,3 +36,4 @@ int	ft_print_percent_type(s_arg s_arg);
 int	ft_print_string_type(s_arg s_arg, va_list *arg_ptr);
 int	ft_print_number_type(s_arg s_arg, va_list *arg_ptr);
 int	ft_strlen(char *str);
+int	ft_isprint(int ch);

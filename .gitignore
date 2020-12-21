@@ -6,3 +6,9 @@
 a.out.dSYM
 test.dSYM
 .DS_Store
+pft/history.csv
+pft/src/unit_tests_indexed.c
+pft/test
+pft/test.libc
+pft/test.mine
+pft/unit_tests.c

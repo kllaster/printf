@@ -6,7 +6,7 @@
 /*   By: apending <apending@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 19:47:59 by apending          #+#    #+#             */
-/*   Updated: 2020/12/17 23:41:24 by apending         ###   ########.fr       */
+/*   Updated: 2020/12/21 19:40:50 by apending         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ char	*ft_getres(char *res, unsigned int num, int len, int flag)
 	return (res);
 }
 
-char			*ft_itoa(int n)
+char	*ft_itoa(int n)
 {
 	char			*res;
 	int				flag;
@@ -67,51 +67,39 @@ char			*ft_itoa(int n)
 
 int ft_print_number_type(s_arg s_arg, va_list *arg_ptr)
 {
+	int i;
 	int num;
-	int len;
+	int sign;
+	int print_c;
 	char *str;
-	char c;
 
-	c = ' ';
+	print_c = 0;
 	num = va_arg(*arg_ptr, int);
-	str = ft_itoa(num);
-	if (!str)
+	if (num < 0)
+	{
+		sign = 1;
+		num *= -1;
+	}
+	if (!(str = ft_itoa(num)))
 		return (-1);
-	len = ft_strlen(str);
-	if (s_arg.precision != -1 && s_arg.precision < len)
-		len = s_arg.precision;
-	if (s_arg.flag & FLG_NULL)
-		c = '0';
-	if (s_arg.width > len)
+	i = ft_strlen(str);
+	if (sign)
 	{
-		if (!(s_arg.flag & FLG_MINUS))
-		{
-			len = s_arg.width - len;
-			while (len--)
-				write(1, &c, 1);
-		}
-		len = -1;
-		while (str[++len])
-		{
-			if (s_arg.precision == len)
-				break ;
-			write(1, &(str[len]), 1);
-		}
-		if (s_arg.flag & FLG_MINUS)
-		{
-			len = s_arg.width - len;
-			while (len--)
-				write(1, &c, 1);
-		}
-		return (s_arg.width);
+		write(1, '-', 1);
+		print_c++;
 	}
-	len = -1;
-	while (str[++len])
+	while (s_arg.width != 0 && (s_arg.width)-- > i)
 	{
-		if (s_arg.precision == len)
+		write(1, '0', 1);
+		print_c++;
+	}
+	i = -1;
+	while (str[++i])
+	{
+		if (s_arg.precision == i)
 			break ;
-		write(1, &(str[len]), 1);
+		write(1, &(str[i]), 1);
+		print_c++;
 	}
-	free(str);
-	return (len);
+	return (print_c);
 }

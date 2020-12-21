@@ -6,13 +6,14 @@
 #    By: apending <apending@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/15 21:35:37 by apending          #+#    #+#              #
-#    Updated: 2020/12/17 21:18:53 by apending         ###   ########.fr        #
+#    Updated: 2020/12/18 20:00:49 by apending         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libftprintf.a
 CC = gcc
-CFLAGS = -Wall -Wextra
+LIB = ar rc
+CFLAGS_TEST = -Wall -Wextra
 SRC =   main.c\
 		ft_printf.c\
 		ft_printf_parser.c\
@@ -23,10 +24,16 @@ SRC =   main.c\
 
 OBJS = $(SRC:.c=.o)
 
-all:	$(NAME)
 
-$(NAME): $(OBJS)
-		$(CC) $(CFLAGS) -o $(NAME) $(OBJS)
+all:	bild
+
+test: $(OBJS)
+		$(CC) $(CFLAGS_TEST) -o $(NAME) $(OBJS)
+
+bild: $(OBJS)
+		$(LIB) $(NAME) $(OBJS)
+		ranlib $(NAME)
+
 clean:
 		rm -f $(OBJS)
 

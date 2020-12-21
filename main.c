@@ -1,7 +1,6 @@
 #include <stdarg.h>
 #include <stdio.h>
 #include <string.h>
-//#include "../libftprintf.h"
 #include "printf.h"
 
 void error(int c1, int c2)
