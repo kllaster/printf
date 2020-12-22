@@ -6,7 +6,7 @@
 /*   By: apending <apending@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 19:47:59 by apending          #+#    #+#             */
-/*   Updated: 2020/12/21 19:40:50 by apending         ###   ########.fr       */
+/*   Updated: 2020/12/22 19:45:31 by apending         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,38 +67,55 @@ char	*ft_itoa(int n)
 
 int ft_print_number_type(s_arg s_arg, va_list *arg_ptr)
 {
-	int i;
+	int len;
 	int num;
 	int sign;
 	int print_c;
 	char *str;
+	char c;
 
+	c = ' ';
+	sign = 0;
 	print_c = 0;
 	num = va_arg(*arg_ptr, int);
+	if (FLG_NULL & s_arg.flag)
+		c = '0';
 	if (num < 0)
 	{
 		sign = 1;
 		num *= -1;
 	}
-	if (!(str = ft_itoa(num)))
-		return (-1);
-	i = ft_strlen(str);
-	if (sign)
+	str = ft_itoa(num);
+	len = ft_strlen(str);
+	if (sign || (FLG_MINUS & s_arg.flag)
+		&& !((FLG_MINUS & s_arg.flag) && sign)
+		&& str[0] != '0' && c != '0')
 	{
-		write(1, '-', 1);
+		write(1, "-", 1);
+		print_c++;
+		sign = 0;
+	}
+	while (--(s_arg.width) > len)
+	{
+		write(1, &c, 1);
 		print_c++;
 	}
-	while (s_arg.width != 0 && (s_arg.width)-- > i)
+	if (sign && str[0] != '0')
+	{
+		write(1, "-", 1);
+		print_c++;
+	}
+	len = -1;
+	while (--(s_arg.precision) > len)
 	{
 		write(1, '0', 1);
 		print_c++;
 	}
-	i = -1;
-	while (str[++i])
+	while (str[++len])
 	{
-		if (s_arg.precision == i)
+		if (s_arg.precision == len)
 			break ;
-		write(1, &(str[i]), 1);
+		write(1, &(str[len]), 1);
 		print_c++;
 	}
 	return (print_c);

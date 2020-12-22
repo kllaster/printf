@@ -6,7 +6,7 @@
 /*   By: apending <apending@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 19:28:19 by apending          #+#    #+#             */
-/*   Updated: 2020/12/18 21:46:18 by apending         ###   ########.fr       */
+/*   Updated: 2020/12/22 19:36:33 by apending         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,25 +14,31 @@
 
 int	ft_parse_flag(const char *format, int index, s_arg *s_arg)
 {
+	int i;
+
+	i = 0;
 	(*s_arg).flag = FLG_NONE;
-	while (format[index])
+	while (format[index + i])
 	{
-		if (format[index] == '-')
+		if (format[index + i] == '-')
 			(*s_arg).flag |= FLG_MINUS;
-		else if (format[index] == '+')
+		else if (format[index + i] == '+')
 			(*s_arg).flag |= FLG_PLUS;
-		else if (format[index] == ' ')
+		else if (format[index + i] == ' ')
 			(*s_arg).flag |= FLG_SPACE;
-		else if (format[index] == '#')
+		else if (format[index + i] == '#')
 			(*s_arg).flag |= FLG_SHARP;
-		else if (format[index] == '0')
+		else if (format[index + i] == '0')
 			(*s_arg).flag |= FLG_NULL;
 		else
+		{
+			if (i > 0)
+				i--;
 			break ;
-		index++;
+		}
+		i++;
 	}
-	index--;
-	return (index);
+	return (index + i);
 }
 
 int	ft_parse_width(const char *format, int index, s_arg *s_arg, va_list *arg_ptr)
@@ -41,7 +47,7 @@ int	ft_parse_width(const char *format, int index, s_arg *s_arg, va_list *arg_ptr
 
 	index++;
 	width = 0;
-	if (format[index] == '*')
+	if (format[index] && format[index] == '*')
 	{
 		(*s_arg).width = va_arg(*arg_ptr, int);
 		if ((*s_arg).width < 0)
@@ -133,7 +139,6 @@ int	ft_print_arg(s_arg s_arg, va_list *arg_ptr)
 		print_sumb = ft_print_string_type(s_arg, arg_ptr);
 	else if (s_arg.type[0] == 'd')
 		print_sumb = ft_print_number_type(s_arg, arg_ptr);
-
 	return (print_sumb);
 }
 
