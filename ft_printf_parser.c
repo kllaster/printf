@@ -6,7 +6,7 @@
 /*   By: apending <apending@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 19:28:19 by apending          #+#    #+#             */
-/*   Updated: 2020/12/22 19:36:33 by apending         ###   ########.fr       */
+/*   Updated: 2020/12/23 21:12:30 by apending         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,7 @@ int	ft_parse_flag(const char *format, int index, s_arg *s_arg)
 			(*s_arg).flag |= FLG_NULL;
 		else
 		{
-			if (i > 0)
-				i--;
+			i--;
 			break ;
 		}
 		i++;
