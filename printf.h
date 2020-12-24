@@ -6,7 +6,7 @@
 /*   By: apending <apending@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 19:24:20 by apending          #+#    #+#             */
-/*   Updated: 2020/12/21 18:55:29 by apending         ###   ########.fr       */
+/*   Updated: 2020/12/24 21:21:12 by apending         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,12 @@ typedef	struct	struct_args {
 	char			type[4];
 } s_arg;
 
-int	ft_printf(const char *format, ...);
-int	ft_printf_parser(const char *format, int *index, va_list *arg_ptr);
-int	ft_print_char_type(s_arg s_arg, va_list *arg_ptr);
-int	ft_print_percent_type(s_arg s_arg);
-int	ft_print_string_type(s_arg s_arg, va_list *arg_ptr);
-int	ft_print_number_type(s_arg s_arg, va_list *arg_ptr);
-int	ft_strlen(char *str);
-int	ft_isprint(int ch);
+int		ft_printf(const char *format, ...);
+int		ft_printf_parser(const char *format, int *index, va_list *arg_ptr);
+int		ft_print_char_type(s_arg s_arg, va_list *arg_ptr);
+int		ft_print_percent_type(s_arg s_arg);
+int		ft_print_string_type(s_arg s_arg, va_list *arg_ptr);
+int		ft_print_number_type(s_arg s_arg, va_list *arg_ptr);
+int		ft_strlen(char *str);
+int		ft_print_pointer_type(s_arg s_arg, va_list *arg_ptr);
+int		ft_numlen(unsigned long long n);

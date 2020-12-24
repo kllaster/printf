@@ -6,7 +6,7 @@
 #    By: apending <apending@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/15 21:35:37 by apending          #+#    #+#              #
-#    Updated: 2020/12/24 20:36:16 by apending         ###   ########.fr        #
+#    Updated: 2020/12/24 20:50:49 by apending         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,9 +21,9 @@ SRC =   main.c\
 		print_arg/ft_print_number_type.c\
 		print_arg/ft_print_string_type.c\
 		print_arg/ft_print_percent_type.c\
+		print_arg/ft_print_pointer_type.c\
 
 OBJS = $(SRC:.c=.o)
-
 
 all:	bild
 

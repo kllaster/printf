@@ -6,13 +6,13 @@
 /*   By: apending <apending@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 19:47:59 by apending          #+#    #+#             */
-/*   Updated: 2020/12/24 20:20:27 by apending         ###   ########.fr       */
+/*   Updated: 2020/12/24 21:42:57 by apending         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../printf.h"
 
-int		ft_numlen(int n)
+int		ft_numlen(unsigned long long n)
 {
 	int	i;
 
@@ -25,7 +25,7 @@ int		ft_numlen(int n)
 	return (i);
 }
 
-char	*ft_getres(char *res, unsigned int num, int len)
+char	*ft_getres(char *res, unsigned long long num, int len)
 {
 	if (!num)
 		res[0] = '0';
@@ -40,11 +40,10 @@ char	*ft_getres(char *res, unsigned int num, int len)
 	return (res);
 }
 
-char	*ft_itoa(int n)
+char	*ft_itoa(unsigned long long n)
 {
 	char			*res;
 	int				len;
-	unsigned int	num;
 
 	len = ft_numlen(n);
 	if (!n)
@@ -52,11 +51,10 @@ char	*ft_itoa(int n)
 		len += 1;
 		n *= -1;
 	}
-	num = (unsigned int)n;
 	if (!(res = malloc((len + 1) * sizeof(char))))
 		return (0);
 	res[len] = 0;
-	return (ft_getres(res, num, len));
+	return (ft_getres(res, n, len));
 }
 
 int ft_print_width(char c, int print_c, s_arg s_arg, int len)
@@ -126,60 +124,6 @@ int ft_print_number_type(s_arg s_arg, va_list *arg_ptr)
 	}
 	if (FLG_MINUS & s_arg.flag)
 		print_c = ft_print_width(c, print_c - len, s_arg, len) + len;
+	free(str);
 	return (print_c);
 }
-// int ft_print_number_type(s_arg s_arg, va_list *arg_ptr)
-// {
-// 	int len;
-// 	int num;
-// 	int sign;
-// 	int print_c;
-// 	char *str;
-// 	char c;
-
-// 	c = ' ';
-// 	sign = 0;
-// 	print_c = 0;
-// 	num = va_arg(*arg_ptr, int);
-// 	if (FLG_NULL & s_arg.flag)
-// 		c = '0';
-// 	if (num < 0)
-// 	{
-// 		sign = 1;
-// 		num *= -1;
-// 	}
-// 	str = ft_itoa(num);
-// 	len = ft_strlen(str);
-// 	if (sign || (FLG_MINUS & s_arg.flag)
-// 		&& !((FLG_MINUS & s_arg.flag) && sign)
-// 		&& str[0] != '0' && c != '0')
-// 	{
-// 		write(1, "-", 1);
-// 		print_c++;
-// 		sign = 0;
-// 	}
-// 	while (--(s_arg.width) > len)
-// 	{
-// 		write(1, &c, 1);
-// 		print_c++;
-// 	}
-// 	if (sign && str[0] != '0')
-// 	{
-// 		write(1, "-", 1);
-// 		print_c++;
-// 	}
-// 	len = -1;
-// 	while (--(s_arg.precision) > len)
-// 	{
-// 		write(1, '0', 1);
-// 		print_c++;
-// 	}
-// 	while (str[++len])
-// 	{
-// 		if (s_arg.precision == len)
-// 			break ;
-// 		write(1, &(str[len]), 1);
-// 		print_c++;
-// 	}
-// 	return (print_c);
-// }
