@@ -6,7 +6,7 @@
 /*   By: apending <apending@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 19:28:19 by apending          #+#    #+#             */
-/*   Updated: 2020/12/23 21:12:30 by apending         ###   ########.fr       */
+/*   Updated: 2020/12/24 20:41:05 by apending         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,10 @@ int	ft_parse_width(const char *format, int index, s_arg *s_arg, va_list *arg_ptr
 	{
 		(*s_arg).width = va_arg(*arg_ptr, int);
 		if ((*s_arg).width < 0)
-				(*s_arg).width = 0;
+		{
+			(*s_arg).width *= -1;
+			(*s_arg).flag |= FLG_MINUS;
+		}
 		return (index);
 	}
 	while (format[index])
