@@ -6,112 +6,67 @@
 /*   By: apending <apending@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/24 20:51:25 by apending          #+#    #+#             */
-/*   Updated: 2020/12/24 21:43:06 by apending         ###   ########.fr       */
+/*   Updated: 2020/12/25 08:06:00 by apending         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../printf.h"
 
-void	*ft_memmove(void *dest, const void *source, size_t count)
-{
-	size_t			i;
-	unsigned char	*p1;
-	unsigned char	*p2;
-
-	i = -1;
-	p1 = (unsigned char *)dest;
-	p2 = (unsigned char *)source;
-	if (dest == source)
-		return (dest);
-	if (dest > source)
-		while (count--)
-			p1[count] = p2[count];
-	else
-		while (++i != count)
-			p1[i] = p2[i];
-	return (dest);
-}
-
-char	*ft_strjoin(char *s1, char *s2)
-{
-	size_t	size;
-	size_t	len1;
-	size_t	len2;
-	char	*res;
-
-	len1 = ft_strlen((char *)s1);
-	len2 = ft_strlen((char *)s2);
-	size = len1 + len2 + 1;
-	if (!(res = malloc(size * sizeof(char))))
-		return (0);
-	if (s1)
-		ft_memmove((void *)res, (const void *)s1, len1);
-	ft_memmove((void *)(res + len1), (const void *)s2, len2);
-	*(res + size - 1) = 0;
-	if (s2)
-		free(s2);
-	return (res);
-}
-
-char	*ft_getres_hex(char *res, unsigned long long num, int len)
+void ft_print_hex(unsigned long num, s_arg s_arg, int *print_c)
 {
 	int hex;
+	char c;
 
-	hex = 0;
-	if (!num)
-		res[0] = '0';
+	hex = num % 16;
+	if (hex < 10)
+		c = hex + '0';
+	else
+		c = hex - 10 + 'a';
+	num /= 16;
+	(*print_c)++;
+	if (num != 0)
+		ft_print_hex(num, s_arg, print_c);
 	else
 	{
-		while (len)
+		if ((s_arg.precision - *print_c) > 0 || (FLG_MINUS & s_arg.flag) || (s_arg.width - (*print_c) - 2) < 0)
+			write(1, "0x", 2);
+		while ((s_arg.precision - *print_c) > 0)
 		{
-			hex = num % 16;
-			if (hex < 10)
-				res[--len] = hex + '0';
-			else
-				res[--len] = hex - 10 + 'a';
-			num /= 16;
+			write(1, "0", 1);
+			(*print_c)++;
 		}
+		if (!(FLG_MINUS & s_arg.flag) && (s_arg.width - (*print_c)) > 0)
+		{
+			while ((s_arg.width - (*print_c) - 2) > 0)
+			{
+				write(1, " ", 1);
+				(*print_c)++;
+			}
+			if ((s_arg.precision - *print_c) < 0)
+				write(1, "0x", 2);
+		}
+		(*print_c) += 2;
 	}
-	return (res);
-}
-
-char	*ft_itoa_hex(unsigned long long n)
-{
-	char			*res;
-	int				len;
-
-	len = ft_numlen(n);
-	if (!n)
-		len = 1;
-	if (!(res = malloc((len + 1) * sizeof(char))))
-		return (0);
-	res[len] = '\0';
-	return (ft_getres_hex(res, n, len));
+	write(1, &c, 1);
 }
 
 int ft_print_pointer_type(s_arg s_arg, va_list *arg_ptr)
 {
-	int len;
 	int print_c;
-	int flag_print;
-	char *str;
 	unsigned long num;
 
-	num = (unsigned long)(va_arg(*arg_ptr, void*));
+	num = (unsigned long)va_arg(*arg_ptr, void*);
 	print_c = 0;
-	str = ft_itoa_hex(num);
-	len = -1;
-	flag_print = 0;
-	write(1, "0x", 2);
-	while (str[++len])
+	if (s_arg.precision > s_arg.width)
+		s_arg.width = 0;
+	ft_print_hex(num, s_arg, &print_c);
+	if (FLG_MINUS & s_arg.flag)
 	{
-		if (str[len] != '0')
-			flag_print = 1;
-		else if (!flag_print && num)
-			continue ;
-		write(1, &(str[len]), 1);
-		print_c++;
+		while ((s_arg.width - print_c) > 0)
+		{
+			write(1, " ", 1);
+			print_c++;
+		}
 	}
-	free(str);
 	return (print_c);
 }

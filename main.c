@@ -53,9 +53,25 @@ int main()
 	c1 = printf("|%p|%10p|%20p|%-20p|%-10p|-%p|\n", ptr, ptr, ptr, ptr, ptr, ptr);
 	c2 = ft_printf("|%p|%10p|%20p|%-20p|%-10p|-%p|\n", ptr, ptr, ptr, ptr, ptr, ptr);
 	error(c1, c2);
+
 	printf("\n");
 	c1 = printf("|%.p|%p|%3p|%5p|\n", NULL, NULL, NULL, NULL);
 	c2 = ft_printf("|%.p|%p|%3p|%5p|\n", NULL, NULL, NULL, NULL);
+	error(c1, c2);
+
+	printf("\n");
+	c1 = printf("|%2.p|%4.p|%6.p|%10.p|\n", NULL, NULL, NULL, NULL);
+	c2 = ft_printf("|%2.p|%4.p|%6.p|%10.p|\n", NULL, NULL, NULL, NULL);
+	error(c1, c2);
+
+	printf("\n");
+	c1 = printf("|%.3p|%.5p|%.7p|%12.10p|\n", NULL, NULL, NULL, NULL);
+	c2 = ft_printf("|%.3p|%.5p|%.7p|%12.10p|\n", NULL, NULL, NULL, NULL);
+	error(c1, c2);
+
+	printf("\n");
+	c1 = printf("|%2p|%4p|%6p|%10p|\n", NULL, NULL, NULL, NULL);
+	c2 = ft_printf("|%2p|%4p|%6p|%10p|\n", NULL, NULL, NULL, NULL);
 	error(c1, c2);
 
 //	printf("\n\nUndefined behavior tests:\n");
