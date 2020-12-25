@@ -70,8 +70,8 @@ int main()
 	error(c1, c2);
 
 	printf("\n");
-	c1 = printf("|%2p|%4p|%6p|%10p|\n", NULL, NULL, NULL, NULL);
-	c2 = ft_printf("|%2p|%4p|%6p|%10p|\n", NULL, NULL, NULL, NULL);
+	c1 = printf("|%1p|%2p|%5p|%10p|\n", NULL, NULL, NULL, NULL);
+	c2 = ft_printf("|%1p|%2p|%5p|%10p|\n", NULL, NULL, NULL, NULL);
 	error(c1, c2);
 
 //	printf("\n\nUndefined behavior tests:\n");

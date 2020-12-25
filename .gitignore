@@ -14,5 +14,6 @@ pft/unit_tests.c
 pft_2019/history.csv
 pft_2019/test
 pft_2019/test.mine
+pft_2019/test.libc
 42TESTERS-PRINTF/diff.txt
 pft_2019/results.txt
