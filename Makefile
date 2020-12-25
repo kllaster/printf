@@ -6,7 +6,7 @@
 #    By: apending <apending@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/15 21:35:37 by apending          #+#    #+#              #
-#    Updated: 2020/12/25 19:10:19 by apending         ###   ########.fr        #
+#    Updated: 2020/12/25 19:18:59 by apending         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,13 +14,15 @@ NAME = libftprintf.a
 CC = gcc
 LIB = ar rc
 CFLAGS_TEST = -Wall -Wextra
-SRC =   ft_printf.c\
+SRC =   main.c\
+		ft_printf.c\
 		ft_printf_parser.c\
 		print_arg/ft_print_char_type.c\
 		print_arg/ft_print_number_type.c\
 		print_arg/ft_print_string_type.c\
 		print_arg/ft_print_percent_type.c\
 		print_arg/ft_print_pointer_type.c\
+		print_arg/ft_print_unsigned_number_type.c\
 
 OBJS = $(SRC:.c=.o)
 

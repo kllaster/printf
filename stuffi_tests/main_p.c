@@ -2,19 +2,18 @@
 #include <stdio.h>
 #include <string.h>
 #include "printf.h"
-//#include "libftprintf.h"
 
 void error(int c1, int c2)
 {
 	if (c1 != c2)
-		printf("__________________!!!!!!!!!!!!!!ERROR!!!!!!!!!!!!!!!!____________________\nprintf_%d | ft_printf_%d\n\n\n\n", c1, c2);
+		printf("__________________!!!!!!!!!!!!!!ERROR!!!!!!!!!!!!!!!!____________________\nprintf_%d | ft_printf_%d\n\n", c1, c2);
 }
 
 int main()
 {
 	int c1;
 	int c2;
-	
+
 	printf("\n\n\n__________________________________________________________________________________\n");
 	printf("\nTEST_ADDRESS\n\n");
 	char a;
@@ -54,9 +53,25 @@ int main()
 	c1 = printf("|%p|%10p|%20p|%-20p|%-10p|-%p|\n", ptr, ptr, ptr, ptr, ptr, ptr);
 	c2 = ft_printf("|%p|%10p|%20p|%-20p|%-10p|-%p|\n", ptr, ptr, ptr, ptr, ptr, ptr);
 	error(c1, c2);
+
 	printf("\n");
 	c1 = printf("|%.p|%p|%3p|%5p|\n", NULL, NULL, NULL, NULL);
 	c2 = ft_printf("|%.p|%p|%3p|%5p|\n", NULL, NULL, NULL, NULL);
+	error(c1, c2);
+
+	printf("\n");
+	c1 = printf("|%2.p|%4.p|%6.p|%10.p|\n", NULL, NULL, NULL, NULL);
+	c2 = ft_printf("|%2.p|%4.p|%6.p|%10.p|\n", NULL, NULL, NULL, NULL);
+	error(c1, c2);
+
+	printf("\n");
+	c1 = printf("|%.3p|%.5p|%.7p|%12.10p|\n", NULL, NULL, NULL, NULL);
+	c2 = ft_printf("|%.3p|%.5p|%.7p|%12.10p|\n", NULL, NULL, NULL, NULL);
+	error(c1, c2);
+
+	printf("\n");
+	c1 = printf("|%1p|%2p|%5p|%10p|\n", NULL, NULL, NULL, NULL);
+	c2 = ft_printf("|%1p|%2p|%5p|%10p|\n", NULL, NULL, NULL, NULL);
 	error(c1, c2);
 
 //	printf("\n\nUndefined behavior tests:\n");

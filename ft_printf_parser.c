@@ -6,7 +6,7 @@
 /*   By: apending <apending@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 19:28:19 by apending          #+#    #+#             */
-/*   Updated: 2020/12/24 20:49:41 by apending         ###   ########.fr       */
+/*   Updated: 2020/12/25 19:18:24 by apending         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,6 +141,8 @@ int	ft_print_arg(s_arg s_arg, va_list *arg_ptr)
 		print_sumb = ft_print_string_type(s_arg, arg_ptr);
 	else if (s_arg.type[0] == 'd')
 		print_sumb = ft_print_number_type(s_arg, arg_ptr);
+	else if (s_arg.type[0] == 'u')
+		print_sumb = ft_print_unsigned_number_type(s_arg, arg_ptr);
 	else if (s_arg.type[0] == 'p')
 		print_sumb = ft_print_pointer_type(s_arg, arg_ptr);
 	return (print_sumb);
