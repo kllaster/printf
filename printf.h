@@ -6,7 +6,7 @@
 /*   By: apending <apending@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 19:24:20 by apending          #+#    #+#             */
-/*   Updated: 2020/12/25 19:25:48 by apending         ###   ########.fr       */
+/*   Updated: 2020/12/25 21:35:42 by apending         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ typedef	struct	struct_args {
 	unsigned char	flag;
 	int				width;
 	int				precision;
-	char			type[4];
+	char			type;
 } s_arg;
 
 int		ft_strlen(char *str);
@@ -38,6 +38,7 @@ int		ft_print_string_type(s_arg s_arg, va_list *arg_ptr);
 int		ft_print_number_type(s_arg s_arg, va_list *arg_ptr);
 int		ft_print_pointer_type(s_arg s_arg, va_list *arg_ptr);
 int		ft_print_unsigned_number_type(s_arg s_arg, va_list *arg_ptr);
+int		ft_print_hex_type(s_arg s_arg, va_list *arg_ptr, char c_case);
 
-int ft_print_width(char c, int print_c, s_arg s_arg, int len);
+int		ft_print_width(char c, int print_c, s_arg s_arg, int len);
 char	*ft_itoa(unsigned long long n);

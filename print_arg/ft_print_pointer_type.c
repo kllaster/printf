@@ -6,13 +6,13 @@
 /*   By: apending <apending@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/24 20:51:25 by apending          #+#    #+#             */
-/*   Updated: 2020/12/25 19:14:26 by apending         ###   ########.fr       */
+/*   Updated: 2020/12/25 21:40:57 by apending         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../printf.h"
 
-void ft_print_hex(unsigned long num, s_arg s_arg, int *print_c)
+void ft_print_pointer_hex(unsigned long num, s_arg s_arg, int *print_c)
 {
 	int hex;
 	char c;
@@ -25,7 +25,7 @@ void ft_print_hex(unsigned long num, s_arg s_arg, int *print_c)
 	num /= 16;
 	(*print_c)++;
 	if (num != 0)
-		ft_print_hex(num, s_arg, print_c);
+		ft_print_pointer_hex(num, s_arg, print_c);
 	else
 	{
 		if ((s_arg.precision - *print_c) > 0 || (FLG_MINUS & s_arg.flag) || (s_arg.width - (*print_c) - 2) < 0)
@@ -74,7 +74,7 @@ int ft_print_pointer_type(s_arg s_arg, va_list *arg_ptr)
 			write(1, "0", 1);
 		return (print_c + 1);
 	}
-	ft_print_hex(num, s_arg, &print_c);
+	ft_print_pointer_hex(num, s_arg, &print_c);
 	if (!(FLG_MINUS & s_arg.flag) && print_c == s_arg.width - 1 && s_arg.precision == 0)
 		print_c = s_arg.width;
 	if (FLG_MINUS & s_arg.flag)
