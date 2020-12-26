@@ -6,7 +6,7 @@
 /*   By: apending <apending@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 19:35:30 by apending          #+#    #+#             */
-/*   Updated: 2020/12/18 21:43:12 by apending         ###   ########.fr       */
+/*   Updated: 2020/12/26 21:23:50 by apending         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,5 +92,6 @@ int ft_print_string_type(s_arg s_arg, va_list *arg_ptr)
 			break ;
 		write(1, &(str[len]), 1);
 	}
+	free(str);
 	return (len);
 }
