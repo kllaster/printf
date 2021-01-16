@@ -6,7 +6,7 @@
 /*   By: apending <apending@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 19:28:19 by apending          #+#    #+#             */
-/*   Updated: 2021/01/17 01:16:21 by apending         ###   ########.fr       */
+/*   Updated: 2021/01/17 02:31:39 by apending         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ int	ft_parse_precision(const char *format, int index, s_arg *s_arg, va_list *arg
 int	ft_parse_type(const char *format, int index, s_arg *s_arg)
 {
 	index++;
-	(*s_arg).type = '\0';
+	(*s_arg).type = ' ';
 	if (format[index])
 	{
 		if (format[index] == 'd' || format[index] == 'i' ||
@@ -113,8 +113,6 @@ int	ft_parse_type(const char *format, int index, s_arg *s_arg)
 			format[index] == '%')
 			(*s_arg).type = format[index];
 	}
-	if ((*s_arg).type == '\0')
-		(*s_arg).type = ' ';
 	return (index);
 }
 
@@ -171,5 +169,7 @@ int	ft_printf_parser(const char *format, int *index, va_list *arg_ptr)
 		*index = old_index;
 		return (-2);
 	}
+	else if (s_arg.type == ' ')
+		return (-1);
 	return (print_sumb);
 }

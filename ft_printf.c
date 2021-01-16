@@ -6,7 +6,7 @@
 /*   By: apending <apending@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 17:45:08 by apending          #+#    #+#             */
-/*   Updated: 2021/01/16 23:53:41 by apending         ###   ########.fr       */
+/*   Updated: 2021/01/17 02:16:48 by apending         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	ft_printf(const char *format, ...)
 		{
 			if ((print_check_val =
 				ft_printf_parser(format, &i, &arg_ptr)) == -1)
-				return (-1);
+				return (0);
 			if (print_check_val != -2)
 			{
 				print_res += print_check_val;
