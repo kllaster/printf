@@ -6,7 +6,7 @@
 /*   By: apending <apending@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 19:28:19 by apending          #+#    #+#             */
-/*   Updated: 2020/12/25 21:49:08 by apending         ###   ########.fr       */
+/*   Updated: 2021/01/17 01:16:21 by apending         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int	ft_parse_precision(const char *format, int index, s_arg *s_arg, va_list *arg
 	if (format[index] && format[index] == '.')
 	{
 		index++;
-		if (format[index] == '*')
+		if (format[index] && format[index] == '*')
 		{
 			(*s_arg).precision = va_arg(*arg_ptr, int);
 			if ((*s_arg).precision < 0)
@@ -101,27 +101,20 @@ int	ft_parse_precision(const char *format, int index, s_arg *s_arg, va_list *arg
 
 int	ft_parse_type(const char *format, int index, s_arg *s_arg)
 {
-	int i;
-
-	i = 0;
 	index++;
 	(*s_arg).type = '\0';
 	if (format[index])
 	{
-		if ((format[index] == 'd' || format[index] == 'i') && ++i)
-			(*s_arg).type = 'd';
-		else if ((format[index] == 'c' ||
-					format[index] == 'x' ||
-					format[index] == 'X' ||
-					format[index] == 'o' ||
-					format[index] == 'u' ||
-					format[index] == 's' ||
-					format[index] == 'S' ||
-					format[index] == 'p') && ++i)
+		if (format[index] == 'd' || format[index] == 'i' ||
+			format[index] == 'c' || format[index] == 'x' ||
+			format[index] == 'X' || format[index] == 'o' ||
+			format[index] == 'u' || format[index] == 's' ||
+			format[index] == 'S' || format[index] == 'p' ||
+			format[index] == '%')
 			(*s_arg).type = format[index];
 	}
-	if (i == 0 && ((*s_arg).precision != -1 || (*s_arg).width > 0))
-		(*s_arg).type = '%';
+	if ((*s_arg).type == '\0')
+		(*s_arg).type = ' ';
 	return (index);
 }
 
@@ -136,7 +129,7 @@ int	ft_print_arg(s_arg s_arg, va_list *arg_ptr)
 		print_sumb = ft_print_percent_type(s_arg);
 	else if (s_arg.type == 's')
 		print_sumb = ft_print_string_type(s_arg, arg_ptr);
-	else if (s_arg.type == 'd')
+	else if (s_arg.type == 'd' || s_arg.type == 'i')
 		print_sumb = ft_print_number_type(s_arg, arg_ptr);
 	else if (s_arg.type == 'u')
 		print_sumb = ft_print_unsigned_number_type(s_arg, arg_ptr);
@@ -146,6 +139,8 @@ int	ft_print_arg(s_arg s_arg, va_list *arg_ptr)
 		print_sumb = ft_print_hex_type(s_arg, arg_ptr, 'a');
 	else if (s_arg.type == 'X')
 		print_sumb = ft_print_hex_type(s_arg, arg_ptr, 'A');
+	else if (s_arg.type == ' ')
+		print_sumb = 0;
 	return (print_sumb);
 }
 

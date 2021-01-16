@@ -6,7 +6,7 @@
 /*   By: apending <apending@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 19:35:30 by apending          #+#    #+#             */
-/*   Updated: 2020/12/26 21:23:50 by apending         ###   ########.fr       */
+/*   Updated: 2021/01/17 01:02:11 by apending         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,66 +24,25 @@ int		ft_strlen(char *str)
 	return (i);
 }
 
-char	*ft_strdup(const char *str)
-{
-	char	*res;
-	char	*p;
-	size_t	size;
-
-	size = (size_t)ft_strlen((char*)str) + 1;
-	if (!(res = malloc(size * sizeof(char))))
-		return (0);
-	p = res;
-	while (*str)
-	{
-		*res = *str;
-		str++;
-		res++;
-	}
-	*res = 0;
-	return (p);
-}
-
 int ft_print_string_type(s_arg s_arg, va_list *arg_ptr)
 {
+	int print_c;
 	int len;
-	int free_null;
 	char *str;
 
-	free_null = 0;
+	print_c = 0;
 	str = va_arg(*arg_ptr, char *);
 	if (str == NULL)
-	{
-		free_null = 1;
-		str = ft_strdup("(null)");
-	}
+		str = "(null)";
 	len = ft_strlen(str);
 	if (s_arg.precision != -1 && s_arg.precision < len)
 		len = s_arg.precision;
-	if (s_arg.width > len)
+	if ((s_arg.width > len) && !(s_arg.flag & FLG_MINUS))
 	{
-		if (!(s_arg.flag & FLG_MINUS))
-		{
-			len = s_arg.width - len;
-			while (len--)
-				write(1, " ", 1);
-		}
-		len = -1;
-		while (str[++len])
-		{
-			if (s_arg.precision == len)
-				break ;
-			write(1, &(str[len]), 1);
-		}
-		if (s_arg.flag & FLG_MINUS)
-		{
-			len = s_arg.width - len;
-			while (len--)
-				write(1, " ", 1);
-		}
-		if (free_null)
-			free(str);
-		return (s_arg.width);
+		s_arg.width -= len;
+		print_c += s_arg.width;
+		while (s_arg.width--)
+			write(1, " ", 1);
 	}
 	len = -1;
 	while (str[++len])
@@ -91,7 +50,14 @@ int ft_print_string_type(s_arg s_arg, va_list *arg_ptr)
 		if (s_arg.precision == len)
 			break ;
 		write(1, &(str[len]), 1);
+		++print_c;
 	}
-	free(str);
-	return (len);
+	if ((s_arg.width > len) && (s_arg.flag & FLG_MINUS))
+	{
+		s_arg.width -= len;
+		print_c += s_arg.width;
+		while (s_arg.width--)
+			write(1, " ", 1);
+	}
+	return (print_c);
 }

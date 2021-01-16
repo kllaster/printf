@@ -6,7 +6,7 @@
 /*   By: apending <apending@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 19:47:59 by apending          #+#    #+#             */
-/*   Updated: 2020/12/25 19:25:52 by apending         ###   ########.fr       */
+/*   Updated: 2021/01/17 01:18:17 by apending         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int ft_print_width(char c, int print_c, s_arg s_arg, int len)
 int ft_print_number_type(s_arg s_arg, va_list *arg_ptr)
 {
 	int len;
-	int num;
+	long int num;
 	int sign;
 	int print_c;
 	char *str;
@@ -123,7 +123,7 @@ int ft_print_number_type(s_arg s_arg, va_list *arg_ptr)
 		print_c++;
 	}
 	if (FLG_MINUS & s_arg.flag)
-		print_c = ft_print_width(c, print_c - len, s_arg, len) + len;
+		print_c = ft_print_width(' ', print_c - len, s_arg, len) + len;
 	free(str);
 	return (print_c);
 }
