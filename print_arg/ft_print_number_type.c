@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: apending <apending@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/14 19:47:59 by apending          #+#    #+#             */
-/*   Updated: 2021/01/17 10:46:43 by apending         ###   ########.fr       */
+/*   Created: 2021/01/17 11:11:53 by apending          #+#    #+#             */
+/*   Updated: 2021/01/17 11:26:20 by apending         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,8 @@ void ft_print_number_width(s_arg s_arg, int *print_c, int sign)
 	width_c = ' ';
 	if ((FLG_NULL & s_arg.flag) && s_arg.precision == -1)
 		width_c = '0';
-	if (sign == 1 && (width_c == '0' || s_arg.width == 0))
-	{
+	if (sign == 1 && (width_c == '0' || s_arg.width == 0) && (sign = -1))
 		write(1, sign == 0 ? "+" : "-", 1);
-		sign = -1;
-	}
 	if (!(FLG_MINUS & s_arg.flag) && (s_arg.width - *print_c) > 0)
 	{
 		if (*print_c == 1 && s_arg.precision == 0)

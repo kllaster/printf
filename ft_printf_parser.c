@@ -6,7 +6,7 @@
 /*   By: apending <apending@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 19:28:19 by apending          #+#    #+#             */
-/*   Updated: 2021/01/17 02:31:39 by apending         ###   ########.fr       */
+/*   Updated: 2021/01/17 11:40:15 by apending         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,8 @@ int	ft_parse_width(const char *format, int index, s_arg *s_arg, va_list *arg_ptr
 	if (format[index] && format[index] == '*')
 	{
 		(*s_arg).width = va_arg(*arg_ptr, int);
-		if ((*s_arg).width < 0)
-		{
-			(*s_arg).width *= -1;
+		if ((*s_arg).width < 0 && ((*s_arg).width *= -1))
 			(*s_arg).flag |= FLG_MINUS;
-		}
 		return (index);
 	}
 	while (format[index])
@@ -70,13 +67,10 @@ int	ft_parse_width(const char *format, int index, s_arg *s_arg, va_list *arg_ptr
 
 int	ft_parse_precision(const char *format, int index, s_arg *s_arg, va_list *arg_ptr)
 {
-	int precision;
-
 	index++;
-	precision = 0;
-	if (format[index] && format[index] == '.')
+	(*s_arg).precision = 0;
+	if (format[index] && format[index] == '.' && (++index))
 	{
-		index++;
 		if (format[index] && format[index] == '*')
 		{
 			(*s_arg).precision = va_arg(*arg_ptr, int);
@@ -87,12 +81,11 @@ int	ft_parse_precision(const char *format, int index, s_arg *s_arg, va_list *arg
 		while (format[index])
 		{
 			if (format[index] >= '0' && format[index] <= '9')
-				precision = (precision * 10) + format[index] - '0';
+				(*s_arg).precision = ((*s_arg).precision * 10) + format[index] - '0';
 			else
 				break ;
 			index++;
 		}
-		(*s_arg).precision = precision;
 	}
 	else
 		(*s_arg).precision = -1;
@@ -151,11 +144,8 @@ int	ft_printf_parser(const char *format, int *index, va_list *arg_ptr)
 	print_sumb = 0;
 	old_index = *index;
 	*index += 1;
-	if (format[*index] == '%')
-	{
-		write(1, "%", 1);
+	if (format[*index] == '%' && (write(1, "%", 1)))
 		return (1);
-	}
 	if ((*index = ft_parse_flag(format, *index, &s_arg)) == -1)
 		return (-1);
 	if ((*index = ft_parse_width(format, *index, &s_arg, arg_ptr)) == -1)
@@ -164,11 +154,8 @@ int	ft_printf_parser(const char *format, int *index, va_list *arg_ptr)
 		return (-1);
 	if ((*index = ft_parse_type(format, *index, &s_arg)) == -1)
 		return (-1);
-	if ((print_sumb = ft_print_arg(s_arg, arg_ptr)) == -2)
-	{
-		*index = old_index;
+	if ((print_sumb = ft_print_arg(s_arg, arg_ptr)) == -2 && (*index = old_index))
 		return (-2);
-	}
 	else if (s_arg.type == ' ')
 		return (-1);
 	return (print_sumb);

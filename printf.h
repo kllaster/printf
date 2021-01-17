@@ -6,7 +6,7 @@
 /*   By: apending <apending@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 19:24:20 by apending          #+#    #+#             */
-/*   Updated: 2020/12/25 21:35:42 by apending         ###   ########.fr       */
+/*   Updated: 2021/01/17 11:15:59 by apending         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,3 @@ int		ft_print_number_type(s_arg s_arg, va_list *arg_ptr);
 int		ft_print_pointer_type(s_arg s_arg, va_list *arg_ptr);
 int		ft_print_unsigned_number_type(s_arg s_arg, va_list *arg_ptr);
 int		ft_print_hex_type(s_arg s_arg, va_list *arg_ptr, char c_case);
-
-int		ft_print_width(char c, int print_c, s_arg s_arg, int len);
-char	*ft_itoa(unsigned long long n);
