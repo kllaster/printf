@@ -6,7 +6,7 @@
 /*   By: apending <apending@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 18:52:39 by apending          #+#    #+#             */
-/*   Updated: 2021/01/16 23:38:34 by apending         ###   ########.fr       */
+/*   Updated: 2021/01/17 08:56:39 by apending         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,22 +23,13 @@ int	ft_print_char_type(s_arg s_arg, va_list *arg_ptr)
 		s_arg.width = 1;
 	--s_arg.width;
 	if (FLG_MINUS & s_arg.flag)
-	{
 		write(1, &c, 1);
-		while (--(s_arg.width) >= 0)
-		{
-			write(1, " ", 1);
-			print_c++;
-		}
-	}
-	else
+	while (--(s_arg.width) >= 0)
 	{
-		while (--(s_arg.width) >= 0)
-		{
-			write(1, " ", 1);
-			print_c++;
-		}
-		write(1, &c, 1);
+		write(1, " ", 1);
+		print_c++;
 	}
+	if (!(FLG_MINUS & s_arg.flag))
+		write(1, &c, 1);
 	return (print_c);
 }
