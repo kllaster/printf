@@ -18,21 +18,26 @@ typedef	struct	s_args {
 	char			type;
 }				t_arg_param;
 
-int	ft_strlen(char *str);
-int ft_print_repeat_char(char c, int len);
-int	ft_printf(const char *format, ...);
-int	ft_parse_flag(const char *format, int index, t_arg_param *param);
-int	ft_parse_width(const char *format, int index, t_arg_param *param,
+int				ft_strlen(char *str);
+int				ft_print_repeat_char(char c, int len);
+int				ft_printf(const char *format, ...);
+int				ft_parse_flag(const char *format, int index,
+								t_arg_param *param);
+int				ft_parse_width(const char *format, int index,
+								t_arg_param *param,
 va_list *arg_ptr);
-int	ft_parse_precision(const char *format, int index
-, t_arg_param *param, va_list *arg_ptr);
-int	ft_parse_type(const char *format, int index, t_arg_param *param);
-int	ft_print_arg(t_arg_param param, va_list *arg_ptr);
-int	ft_print_char_type(t_arg_param param, va_list *arg_ptr);
-int	ft_print_percent_type(t_arg_param param);
-int	ft_print_string_type(t_arg_param param, va_list *arg_ptr);
-int	ft_print_number_type(t_arg_param param, va_list *arg_ptr);
-int	ft_print_pointer_type(t_arg_param param, va_list *arg_ptr);
-int	ft_print_unsigned_number_type(t_arg_param param, va_list *arg_ptr);
-int	ft_print_hex_type(t_arg_param param, va_list *arg_ptr, char c_case);
+int				ft_parse_precision(const char *format, int index,
+									t_arg_param *param, va_list *arg_ptr);
+int				ft_parse_type(const char *format, int index,
+								t_arg_param *param);
+int				ft_print_arg(t_arg_param param, va_list *arg_ptr);
+int				ft_print_char_type(t_arg_param param, va_list *arg_ptr);
+int				ft_print_percent_type(t_arg_param param);
+int				ft_print_string_type(t_arg_param param, va_list *arg_ptr);
+int				ft_print_number_type(t_arg_param param, va_list *arg_ptr);
+int				ft_print_pointer_type(t_arg_param param, va_list *arg_ptr);
+int				ft_print_unsigned_number_type(t_arg_param param,
+												va_list *arg_ptr);
+int				ft_print_hex_type(t_arg_param param,
+									va_list *arg_ptr, char c_case);
 #endif
