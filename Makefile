@@ -1,30 +1,45 @@
 NAME = libftprintf.a
-CFLAGS = -Wall -Wextra -Werror
-SRCS =  ft_printf.c\
-		ft_printf_parser.c\
-		ft_print_char_type.c\
-		ft_print_number_type.c\
-		ft_print_string_type.c\
-		ft_print_percent_type.c\
-		ft_print_pointer_type.c\
-		ft_print_unsigned_number_type.c\
-		ft_print_hex_type.c\
+CC = gcc
+FLAGS = -c -Wall -Wextra -Werror
+SRCS =
 
-OBJS = $(SRCS:.c=.o)
+NAME	= 	libftprintf.a
 
-all:	$(NAME)
+SRC		= 	ft_printf.c\
+			ft_printf_parser.c\
+			ft_print_char_type.c\
+			ft_print_number_type.c\
+			ft_print_string_type.c\
+			ft_print_percent_type.c\
+			ft_print_pointer_type.c\
+			ft_print_unsigned_number_type.c\
+			ft_print_hex_type.c\
 
-$(NAME):
-			gcc -c $(CFLAGS) $(SRCS) -I ft_printf.h
-			ar rc $(NAME) $(OBJS)
+OBJS	=	ft_printf.o\
+			ft_printf_parser.o\
+			ft_print_char_type.o\
+			ft_print_number_type.o\
+			ft_print_string_type.o\
+			ft_print_percent_type.o\
+			ft_print_pointer_type.o\
+			ft_print_unsigned_number_type.o\
+			ft_print_hex_type.o\
+
+.c.o:
+	${CC} -c $< -o ${<:.c=.o}
+
+$(NAME):	${OBJS}
+			${CC} ${FLAGS} ${SRC}
+			ar -rcs ${NAME} ${OBJS}
+
+all: 		${NAME}
 
 clean:
-			rm -f $(OBJS)
+			rm -rf ${OBJS}
 
-fclean:		clean
-			rm -f $(NAME)
+fclean:	clean
+			rm -rf libftprintf.a
 
-re:		fclean all
+re: 		fclean all
 
-.PHONY:	all, clean, fclean, re
-.SILENT:
+.PHONY: all clean fclean
