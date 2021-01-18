@@ -19,6 +19,7 @@ typedef	struct	s_args {
 }				t_arg_param;
 
 int	ft_strlen(char *str);
+int ft_print_repeat_char(char c, int len);
 int	ft_printf(const char *format, ...);
 int	ft_parse_flag(const char *format, int index, t_arg_param *param);
 int	ft_parse_width(const char *format, int index, t_arg_param *param,

@@ -2,8 +2,11 @@
 
 void	ft_print_pointer_width(t_arg_param param, int *print_c)
 {
-	if ((param.precision - *print_c) > 0 ||
-		(FLG_MINUS & param.flag) || (param.width - (*print_c) - 2) < 0)
+	int start_chars;
+
+	start_chars = 0;
+	if (((param.precision - *print_c) > 0 ||
+		(FLG_MINUS & param.flag) || (param.width - (*print_c) - 2) < 0) && (start_chars = 1))
 		write(1, "0x", 2);
 	while ((param.precision - *print_c) > 0)
 	{
@@ -19,7 +22,7 @@ void	ft_print_pointer_width(t_arg_param param, int *print_c)
 			write(1, " ", 1);
 			(*print_c)++;
 		}
-		if ((param.precision - *print_c) < 0)
+		if (start_chars == 0)
 			write(1, "0x", 2);
 	}
 	(*print_c) += 2;
