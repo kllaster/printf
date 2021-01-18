@@ -1,46 +1,28 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: apending <apending@student.42.fr>          +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2020/12/15 21:35:37 by apending          #+#    #+#              #
-#    Updated: 2020/12/25 21:40:06 by apending         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
 NAME = libftprintf.a
-CC = gcc
-LIB = ar rc
-CFLAGS_TEST = -Wall -Wextra
-SRC =   main.c\
-		ft_printf.c\
+CFLAGS = -Wall -Wextra -Werror
+SRCS =  ft_printf.c\
 		ft_printf_parser.c\
-		print_arg/ft_print_char_type.c\
-		print_arg/ft_print_number_type.c\
-		print_arg/ft_print_string_type.c\
-		print_arg/ft_print_percent_type.c\
-		print_arg/ft_print_pointer_type.c\
-		print_arg/ft_print_unsigned_number_type.c\
-		print_arg/ft_print_hex_type.c\
+		ft_print_char_type.c\
+		ft_print_number_type.c\
+		ft_print_string_type.c\
+		ft_print_percent_type.c\
+		ft_print_pointer_type.c\
+		ft_print_unsigned_number_type.c\
+		ft_print_hex_type.c\
 
-OBJS = $(SRC:.c=.o)
+OBJS = $(SRCS:.c=.o)
 
-all:	bild
+all:	$(NAME)
 
-test: $(OBJS)
-		$(CC) $(CFLAGS_TEST) -o $(NAME) $(OBJS)
-
-bild: $(OBJS)
-		$(LIB) $(NAME) $(OBJS)
-		ranlib $(NAME)
+$(NAME):
+			gcc -c $(CFLAGS) $(SRCS) -I ft_printf.h
+			ar rc $(NAME) $(OBJS)
 
 clean:
-		rm -f $(OBJS)
+			rm -f $(OBJS)
 
 fclean:		clean
-		rm -f $(NAME)
+			rm -f $(NAME)
 
 re:		fclean all
 

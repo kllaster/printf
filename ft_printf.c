@@ -1,16 +1,33 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: apending <apending@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/14 17:45:08 by apending          #+#    #+#             */
-/*   Updated: 2021/01/17 11:29:24 by apending         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+#include "ft_printf.h"
 
-#include "printf.h"
+int	ft_printf_parser(const char *format, int *index, va_list *arg_ptr)
+{
+	int			old_index;
+	int			print_sumb;
+	t_arg_param	param;
+
+	print_sumb = 0;
+	old_index = *index;
+	*index += 1;
+	if (format[*index] == '%' && (write(1, "%", 1)))
+		return (1);
+	if ((*index = ft_parse_flag(format, *index, &param)) == -1)
+		return (-1);
+	if ((*index = ft_parse_width(format, *index, &param, arg_ptr)) == -1)
+		return (-1);
+	if ((*index = ft_parse_precision(format, *index, &param, arg_ptr)) == -1)
+		return (-1);
+	if ((*index = ft_parse_type(format, *index, &param)) == -1)
+		return (-1);
+	if ((print_sumb = ft_print_arg(param, arg_ptr)) == -2)
+	{
+		*index = old_index;
+		return (-2);
+	}
+	else if (param.type == ' ')
+		return (-1);
+	return (print_sumb);
+}
 
 int	ft_printf(const char *format, ...)
 {
