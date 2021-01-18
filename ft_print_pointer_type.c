@@ -6,7 +6,8 @@ void	ft_print_pointer_width(t_arg_param param, int *print_c)
 
 	start_chars = 0;
 	if (((param.precision - *print_c) > 0 ||
-		(FLG_MINUS & param.flag) || (param.width - (*print_c) - 2) < 0) && (start_chars = 1))
+		(FLG_MINUS & param.flag) || (param.width - (*print_c) - 2) < 0)
+		&& (start_chars = 1))
 		write(1, "0x", 2);
 	while ((param.precision - *print_c) > 0)
 	{

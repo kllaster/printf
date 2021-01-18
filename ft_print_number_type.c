@@ -1,6 +1,6 @@
 #include "ft_printf.h"
 
-int ft_print_repeat_char(char c, int len)
+int		ft_print_repeat_char(char c, int len)
 {
 	int i;
 
@@ -66,11 +66,10 @@ int		ft_print_number_type(t_arg_param param, va_list *arg_ptr)
 	num = (int)va_arg(*arg_ptr, int);
 	if (num == 0 && param.precision == 0)
 		return (ft_print_repeat_char(' ', param.width));
-	if (num < 0)
+	if (num < 0 && (++print_c))
 	{
 		sign = 1;
 		num *= -1;
-		print_c++;
 		if (param.precision != -1)
 			param.precision++;
 	}
