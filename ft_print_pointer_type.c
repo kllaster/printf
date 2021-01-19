@@ -54,9 +54,19 @@ int		ft_print_pointer_two(t_arg_param param)
 	return (3);
 }
 
+int		ft_print_pointer_num_precision_null(t_arg_param param)
+{
+	if ((FLG_MINUS & param.flag))
+		write(1, "0x", 2);
+	ft_print_repeat_char(' ', param.width - 2);
+	if (!(FLG_MINUS & param.flag))
+		write(1, "0x", 2);
+	return ((((param.width - 2) < 0 ? 2 : param.width) - 2) + 2);
+}
+
 int		ft_print_pointer_type(t_arg_param param, va_list *arg_ptr)
 {
-	int				print_c;
+	int					print_c;
 	unsigned long int	num;
 
 	num = (unsigned long int)va_arg(*arg_ptr, void*);
@@ -66,16 +76,7 @@ int		ft_print_pointer_type(t_arg_param param, va_list *arg_ptr)
 	if (!num && param.width == 2)
 		return (ft_print_pointer_two(param));
 	if (num == 0 && param.precision == 0)
-	{
-		if ((FLG_MINUS & param.flag))
-			write(1, "0x", 2);
-		ft_print_repeat_char(' ', param.width - 2);
-		if (!(FLG_MINUS & param.flag))
-			write(1, "0x", 2);
-		if ((param.width - 2) < 0)
-			param.width = 2;
-		return ((param.width - 2) + 2);
-	}
+		return (ft_print_pointer_num_precision_null(param));
 	ft_print_pointer(num, param, &print_c);
 	if (!(FLG_MINUS & param.flag) && print_c == param.width - 1
 		&& param.precision == 0)

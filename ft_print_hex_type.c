@@ -43,7 +43,8 @@ void	ft_print_hex(unsigned int num, t_arg_param param, int *print_c,
 
 int		ft_print_hex_two(t_arg_param param)
 {
-	if ((FLG_NULL & param.flag) && (FLG_MINUS & param.flag) && param.precision != 0)
+	if ((FLG_NULL & param.flag) && (FLG_MINUS & param.flag)
+		&& param.precision != 0)
 		return (write(1, "0 ", 2));
 	if (param.precision == 0)
 		write(1, "  ", 2);

@@ -49,7 +49,8 @@ int	ft_print_string_type(t_arg_param param, va_list *arg_ptr)
 		write(1, &(str[len]), 1);
 		++print_c;
 	}
-	if ((param.width > len) && (param.flag & FLG_MINUS) && (param.flag &= ~FLG_NULL))
+	if ((param.width > len) && (param.flag & FLG_MINUS)
+		&& (param.flag &= ~FLG_NULL))
 		print_c = ft_print_string_width(param, len, print_c);
 	return (print_c);
 }
