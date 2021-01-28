@@ -6,7 +6,7 @@ My implementation of the printf function. <br>
 ## Usage
 
 ```c
-int   ft_printf(char const *str, ...)
+int   ft_printf(char const *format, ...)
 ```
 
 ``make`` will compile a ``libftprintf.a`` binary.
